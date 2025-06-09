@@ -148,7 +148,8 @@ class LoginBody extends StatelessWidget {
                 borderRadius: BorderRadius.circular(25),
               ),
               height: 50,
-              width: 250,
+              width: 240,
+
               child: IconButton(
                 onPressed: () {},
                 icon: Text(
