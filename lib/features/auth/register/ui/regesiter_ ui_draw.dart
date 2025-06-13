@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:white2_gold/features/auth/register/widget/register_ui.dart';
+import 'package:white2_gold/features/auth/register/ui/register_ui.dart';
 
 class Ui2 extends StatelessWidget {
   const Ui2({super.key});
