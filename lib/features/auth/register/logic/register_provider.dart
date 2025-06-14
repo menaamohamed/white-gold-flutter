@@ -8,33 +8,31 @@ import 'package:white2_gold/features/auth/register/repo/country_repo.dart';
 import 'package:white2_gold/features/auth/register/repo/regions_repo.dart';
 
 class RegisterProvider extends ChangeNotifier {
-  late BuildContext context;
-  RegisterProvider({required this.context}) {
-    fetchCountry(context: context);
+  RegisterProvider() {
+    getAllCountry();
   }
-
   List<CountryModel>? contries;
-  List<RegionsModel>? regionsx;
+  List<RegionsModel>? regions;
   var countrySelcted;
-  var regionsselcted;
+  var regionsSelcted;
   bool countryLoading = false;
   bool regionsLoading = false;
-  Future<void> fetchCountry({required BuildContext context}) async {
-    try {
-      contries = await CountryRepo.getAllCountry();
-      if (contries != null && contries!.isNotEmpty) {
-        countrySelcted = contries!.first.id;
-        await getAllregions(countryId: countrySelcted);
-      }
-    } catch (e) {
-      log("Error fetching countries: $e");
-    } finally {
-      countryLoading = false;
-      notifyListeners();
+  getAllCountry() async {
+    contries = await CountryRepo.getAllCountry();
+    if (contries!.isNotEmpty) {
+      countrySelcted = contries!.first.id;
+      getAllRegions(countryId: countrySelcted);
     }
+    countryLoading = true;
+    notifyListeners();
   }
 
-  getAllregions({countryId}) async {
-    regionsx = await RegionsRepo.getAllRegions(countryId: countryId);
+  getAllRegions({countryId}) async {
+    regions = await RegionsRepo.getAllRegions(countryId: countryId);
+    if (regions!.isNotEmpty) {
+      regionsSelcted = regions!.first.id;
+    } else {}
+    regionsLoading = true;
+    notifyListeners();
   }
 }

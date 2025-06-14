@@ -16,7 +16,7 @@ class Auth3Textfromfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => RegisterProvider(context: context),
+      create: (context) => RegisterProvider(),
       builder: (context, child) => Column(
         children: [
           SizedBox(
@@ -82,43 +82,9 @@ class Auth3Textfromfield extends StatelessWidget {
               color: MnColors.hPrimaryColor,
             ),
           ),
-
           15.sbH,
-          context.watch<RegisterProvider>().countryLoading
-              ? DropdownButtonFormField(
-                  alignment: Alignment.center,
-                  isExpanded: true,
-                  padding: const EdgeInsets.all(10),
-                  value: context.watch<RegisterProvider>().countrySelcted,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey.shade300,
-                    border: InputBorder.none,
-                  ),
-                  items: context.watch<RegisterProvider>().contries!.map((
-                    value,
-                  ) {
-                    return DropdownMenuItem(
-                      value: value.id,
-                      child: Text(
-                        value.name.toString(),
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        maxLines: 1,
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (v) async {
-                    context.read<RegisterProvider>().regionsLoading = false;
-                    context.read<RegisterProvider>().countrySelcted = v;
-                    context.read<RegisterProvider>().getAllregions(
-                      countryId: v,
-                    );
-                  },
-                )
-              : CircularProgressIndicator(color: Colors.black),
+          CustomDropdown(),
+          15.sbH,
         ],
       ),
     );
